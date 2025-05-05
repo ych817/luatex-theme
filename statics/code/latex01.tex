@@ -1,24 +1,53 @@
 {%\linespread{1.0}
 \begin{codefence}[main.tex]\Highlight{1-4,10}
-\DeclareTCBListing{codefence}{% 
-  +o E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}}%
+% 代码块中高亮行的行号也能被高亮 。
+% 代码来自 https://tex.stackexchange.com/questions/741923
+% 相关的库 : minted , fbextra , fancyvrb , etoolbox
+\makeatletter
+\RenewDocumentCommand{\theFancyVerbLine}{}{%
+  \ttfamily\color{colorCodefenceNmbrText}%
+  \ifx\FV@LeftListNumber\relax
+  \else
+    % if left line number is one
+    \ifcsname %
+    FV@HighlightLine:\arabic{FancyVerbLine}%
+    \endcsname%
+      % and if current line is highlighted
+      \setlength{\fboxsep}{0pt}%
+      \colorbox{\FancyVerbHighlightColor}{%
+        \hspace{\myFV@EstimatedNumberWidth}%
+        \strut % \strut in the default font size
+        \footnotesize
+        \vphantom{000}\llap{\oldstylenums{\arabic{FancyVerbLine}}}%
+        \hspace{\dimexpr+\FV@NumberSep}}%
+      \hspace{-\FV@NumberSep}%
+    \else
+      \footnotesize
+      \oldstylenums{\arabic{FancyVerbLine}}%
+    \fi
+  \fi
+}
+\newlength{\myFV@EstimatedNumberWidth}
+\setlength{\myFV@EstimatedNumberWidth}{18pt}
+\makeatother
+% 代码块外观样式设置
+% 相关的库 : minted , tcolorbox , xparse
+\NewTCBListing{codefence}{% 
+  !o !E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}}%
 }{%
-  enhanced,
-  colback=colorCodefenceBodyFill,
-  colframe=colorCodefenceBodyDraw,
-  fontupper=\footnotesize,
-  boxrule=.4pt,
+  codestyle,
   boxsep=2pt,
-  arc=5pt,
   right=-2pt, % 对应 boxsep
   overlay={
-    \pgfdeclarelayer{background}
+    % 下面的命令用于在代码块中使文件名和语法可以不被高亮色块遮挡
+    \pgfdeclarelayer{background}               % 
     \pgfdeclarelayer{foreground}
     \pgfsetlayers{background,main,foreground}
     \begin{tcbclipframe}
       \tikzset{
         boxes/.style={
           draw=colorCodefenceTitlDraw,
+          % fill=colorCodefenceTitlFill,
           text=colorCodefenceTitlText,
           line width=.4pt,
           font=\ttfamily\footnotesize,
@@ -40,15 +69,35 @@
   listing engine=minted,
   minted language = #2, 
   minted options = {   % minted 设置
-    escapeinside= 脎吡,
     tabsize=2,
     linenos=true,
     numbersep=5pt,
     highlightlines={#3},
-    highlightcolor=black!25!DarkSlateBlue,
+    highlightcolor=colorCodefenceBodyFillHL,
     xleftmargin=+10pt,
-    encoding=utf8
   }
+}
+% 行内代码块外观设置
+% 相关的库 : tcolorbox
+\NewTotalTCBox{\codeinline}{% 
+  s E{\Syntax}{{latex}} m%
+}{% 行间代码块设置
+  codestyle,
+  boxsep=0pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  on line, % 位置设置
+}{%
+  \IfBooleanT{#1}{% 如果命令尾部有星号 %
+    \textcolor{gray}{% 就补上灰色的
+      \ttfamily >\ % "Prelude>"
+    }%
+  }%
+  \vphantom{\tt (Fg)}\smash{\mintinline[%
+    %
+  ]{#2}{#3}}%
 }
 \end{codefence}
 }
