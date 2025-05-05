@@ -1,4 +1,4 @@
-\usemintedstyle{material}                                    % 代码块主体高亮风格(见https://pygments.org/styles/)
+\usemintedstyle{material}                                     % 代码块主体高亮风格(见https://pygments.org/styles/)
 \colorlet{colorCodefenceBodyDraw}{Gray}                      % 代码块主体边框颜色
 \colorlet{colorCodefenceBodyFill}{Black!75!DarkBlue}         % 代码块主体填充颜色
 \colorlet{colorCodefenceBodyFillHL}{black!45!DarkSlateBlue}  % 代码块主体填充颜色-高亮行
@@ -13,7 +13,7 @@
 \colorlet{colorCodefenceTitlText}{Cerulean!50!white}         % 代码块行号文字颜色
 \colorlet{colorCodefenceTitlDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
 \colorlet{colorCodefenceTitlFill}{colorCodefenceBodyFill}    % 代码块标题边框颜色
-
+ 
 \tcbset{
   codestyle/.style={
     breakable,
@@ -23,7 +23,6 @@
     skin last=enhanced,
     colframe=colorCodefenceBodyDraw,
     colback =colorCodefenceBodyFill,
-    fontupper=\footnotesize,
     boxrule=.4pt,
     arc=5pt,
   }
@@ -66,6 +65,7 @@
 % 相关的库 : minted , tcolorbox , xparse
 \NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}} }{%
   codestyle,
+  fontupper=\footnotesize,
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
   overlay={
@@ -107,24 +107,24 @@
 }
 % 行内代码块外观设置
 % 相关的库 : tcolorbox
-\NewTotalTCBox{\codeinline}{ s E{\Syntax}{{latex}} m }{% 行间代码块设置
+\newtcbox{\codeinlineTCB}[1][\footnotesize]{% 行间代码块设置
   codestyle,
-  boxsep=0pt,
+  fontupper=#1,
+  colupper=white,
+  nobeforeafter,
+  boxsep=1.5pt,
   left=2pt,
   right=2pt,
-  top=2pt,
-  bottom=2pt,
+  top=0pt,
+  bottom=0pt,
   on line, % 位置设置
-}{%
-  \IfBooleanT{#1}{% 如果命令尾部有星号 %
-    \textcolor{gray}{% 就补上灰色的
-      \ttfamily >\ % "Prelude>"
-    }%
-  }%
-  \vphantom{\tt (Fg)}\smash{\mintinline[%
-    %
-  ]{#2}{#3}}%
 }
+\newcommand{\codeinline}[2][latex]{\codeinlineTCB{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
+\newcommand{\codeinlineSect}[2][latex]{\codeinlineTCB[\small]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
+\newcommand{\codeinlineSectSub}[2][latex]{\codeinlineTCB[\footnotesize]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
+\newcommand{\codeinlineSectSubSub}[2][latex]{\codeinlineTCB[\scriptsize]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
+
+\robustify{\codeinline}
 
 % 代码块中高亮一行内的部分内容 。
 % 相关的库 : 
