@@ -1,0 +1,22 @@
+\begin{multicols*}{2}
+\section{\mintinline{bash}{tcolorbox} 代码块测试}
+
+\input{statics/code/latex01.tex}
+
+\input{statics/code/haskell.tex}
+
+左侧 \LaTeX 语言高亮似乎有些问题\ , 这个应该是 Pygments 的锅\ 。
+
+% \vfill\null\columnbreak
+
+\input{statics/code/latex02.tex}
+
+\input{statics/code/racket.tex}
+
+\setlength{\parindent}{0pt}
+
+泥濠\ ! 我是沉积岩\ ! 下面是一段一段测试文字\ : %
+\codeinline*\Syntax{haskell}{lst = [x| x <- }
+\codeinline\Syntax{haskell}{['a'..'g']] -- by 沉积岩}
+
+\end{multicols*}

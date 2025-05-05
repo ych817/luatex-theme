@@ -1,0 +1,27 @@
+# VSCode 设置（可选忽略）
+# .vscode/
+
+# LaTeX 编译生成文件
+main.aux
+main.fdb_latexmk
+main.fls
+main.listing
+main.log
+main.out
+main.pdf
+main.xdv
+main.synctex.gz.sum.synctex
+
+# minted 自动生成的临时目录
+_minted*/
+
+# 一般推荐通配所有可能的 LaTeX 编译产物（可选增强）
+*.aux
+*.fdb_latexmk
+*.fls
+*.listing
+*.log
+*.out
+*.pdf
+*.xdv
+*.synctex*

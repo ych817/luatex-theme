@@ -1,0 +1,54 @@
+{%\linespread{1.0}
+\begin{codefence}[main.tex]\Highlight{1-4,10}
+\DeclareTCBListing{codefence}{% 
+  +o E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}}%
+}{%
+  enhanced,
+  colback=colorCodefenceBodyFill,
+  colframe=colorCodefenceBodyDraw,
+  fontupper=\footnotesize,
+  boxrule=.4pt,
+  boxsep=2pt,
+  arc=5pt,
+  right=-2pt, % 对应 boxsep
+  overlay={
+    \pgfdeclarelayer{background}
+    \pgfdeclarelayer{foreground}
+    \pgfsetlayers{background,main,foreground}
+    \begin{tcbclipframe}
+      \tikzset{
+        boxes/.style={
+          draw=colorCodefenceTitlDraw,
+          text=colorCodefenceTitlText,
+          line width=.4pt,
+          font=\ttfamily\footnotesize,
+          rounded corners=3pt,
+          outer sep=2pt
+        }
+      }
+      \begin{pgfonlayer}{foreground}
+      \node(ext) [anchor=north east,boxes] 
+      at (frame.north east) {#2};
+      \IfNoValueF{#1}{
+        \node(title) [anchor=east,boxes] 
+        at (ext.west) {#1};
+      }
+      \end{pgfonlayer}
+    \end{tcbclipframe}
+  },
+  listing only, 
+  listing engine=minted,
+  minted language = #2, 
+  minted options = {   % minted 设置
+    escapeinside= 脎吡,
+    tabsize=2,
+    linenos=true,
+    numbersep=5pt,
+    highlightlines={#3},
+    highlightcolor=black!25!DarkSlateBlue,
+    xleftmargin=+10pt,
+    encoding=utf8
+  }
+}
+\end{codefence}
+}

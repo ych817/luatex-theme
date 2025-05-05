@@ -1,0 +1,10 @@
+\begin{codefence}\Syntax{racket}
+;; 过程合约 :  in-S? : Natural   → Bool
+;; 过程用途 : (in-S?     n   )   = #t 仅当 n 属于 S , 否则为 #f
+;; 实参语法 :          Natural ::=  0 | (succ Natural)
+(define in-S? 
+  (lambda (n)
+    (if (zero? n) #t
+        (if (>= (- n 3) 0) (in-S? (- n 3))
+            #f))))
+\end{codefence}

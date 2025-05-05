@@ -1,0 +1,50 @@
+% 中文支持
+\usepackage[
+    10pt,fontset=fandol
+]{ctex}                   % 中文支持
+% 编程相关
+\usepackage{etoolbox}     % 打补丁专用
+% \usepackage{xparse}       % robust
+\usepackage{calc}         % 计算用
+\usepackage{keyval}       % 键值对
+% 页面设置
+\usepackage[
+	landscape,
+	a4paper,
+	% margin=1in
+]{geometry}               % 设置页边距 , 页面大小 , 页面布局等
+\usepackage[
+	grid,
+	gridBG, 
+	gridunit=mm, 
+	gridcolor=red!20, 
+	subgridcolor=blue!10
+]{eso-pic}                % 绘制背景
+\usepackage{multicol}
+% 数学公式
+\usepackage{amsmath}      % 数学排版命令
+\usepackage{amssymb}      % 数学符号
+\usepackage{amsfonts}     % 数学字体 , 如 \mathbf \mathsf \mathit
+\usepackage{mathrsfs}     % 数学花体 , 如 \mathscr
+\usepackage{mathtools}    % 数学工具 , 如 \overbracket
+\usepackage{delarray}     % 数学表格 , 允许在写矩阵的时候不用写 \left(\right) 之类的命令
+\usepackage{cancel}       % 删除线   , 如 \cancel
+\usepackage{bm}           % 数学粗体
+% 颜色控制
+\usepackage[
+	dvipsnames,
+	svgnames,
+    table                   % 允许为单元格染色
+]{xcolor}                 % 颜色扩展
+% \usepackage{luacolor}
+% 代码样式
+\usepackage[
+    all
+]{tcolorbox}              % 各种漂亮的文本框
+\usepackage{minted}	      % 代码高亮
+\usetikzlibrary{tikzmark} % 用于高亮文本
+\usetikzmarklibrary{highlighting}
+\usepackage[
+    export
+]{adjustbox}              % 缩放盒子
+\usepackage{tabularray}   % 表格

@@ -1,0 +1,135 @@
+\usemintedstyle{material}                                    % 代码块主体高亮风格(见https://pygments.org/styles/)
+\colorlet{colorCodefenceBodyDraw}{Gray}                      % 代码块主体边框颜色
+\colorlet{colorCodefenceBodyFill}{Black!75!DarkBlue}         % 代码块主体填充颜色
+\colorlet{colorCodefenceBodyFillHL}{black!45!DarkSlateBlue}  % 代码块主体填充颜色-高亮行
+
+\colorlet{colorCodeinlineBodyDraw}{Gray}                     % 行内代码块边框颜色
+\colorlet{colorCodeinlineBodyFill}{Black!75!DarkBlue}        % 行内代码块填充颜色
+\colorlet{colorCodeinlineBodyFillHL}{black!45!DarkSlateBlue} % 行内代码块填充颜色-高亮行
+
+\colorlet{colorCodefenceNmbrText}{white!25!LightSteelBlue}   % 代码块行号文字颜色
+\colorlet{colorCodefenceNmbrFill}{colorCodefenceBodyFill}    % 代码块行号填充颜色
+
+\colorlet{colorCodefenceTitlText}{Cerulean!50!white}         % 代码块行号文字颜色
+\colorlet{colorCodefenceTitlDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
+\colorlet{colorCodefenceTitlFill}{colorCodefenceBodyFill}    % 代码块标题边框颜色
+
+\tcbset{
+  codestyle/.style={
+    breakable,
+    enhanced,
+    skin first=enhanced,
+    skin middle=enhanced,
+    skin last=enhanced,
+    colframe=colorCodefenceBodyDraw,
+    colback =colorCodefenceBodyFill,
+    fontupper=\footnotesize,
+    boxrule=.4pt,
+    arc=5pt,
+  }
+}
+\setminted{
+  breaklines=true,
+  breakanywhere=true,
+  escapeinside= 脎吡,%
+  encoding=utf8,
+}
+
+% 代码块中高亮行的行号也能被高亮 。代码来自 https://tex.stackexchange.com/questions/741923
+% 相关的库 : minted , fbextra , fancyvrb , etoolbox
+\makeatletter
+\RenewDocumentCommand{\theFancyVerbLine}{}{%
+  \ttfamily\color{colorCodefenceNmbrText}%
+  \ifx\FV@LeftListNumber\relax
+  \else
+    % if left line number is one
+    \ifcsname FV@HighlightLine:\arabic{FancyVerbLine}\endcsname
+      % and if current line is highlighted
+      \setlength{\fboxsep}{0pt}%
+      \colorbox{\FancyVerbHighlightColor}{%
+        \hspace{\myFV@EstimatedNumberWidth}%
+        \strut % \strut in the default font size
+        \footnotesize
+        \vphantom{000}\llap{\oldstylenums{\arabic{FancyVerbLine}}}%
+        \hspace{\dimexpr+\FV@NumberSep}}%
+      \hspace{-\FV@NumberSep}%
+    \else
+      \footnotesize
+      \oldstylenums{\arabic{FancyVerbLine}}%
+    \fi
+  \fi
+}
+\newlength{\myFV@EstimatedNumberWidth}
+\setlength{\myFV@EstimatedNumberWidth}{18pt}
+\makeatother
+% 代码块外观样式设置
+% 相关的库 : minted , tcolorbox , xparse
+\NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}} }{%
+  codestyle,
+  boxsep=2pt,
+  right=-2pt, % 对应 boxsep
+  overlay={
+    % 下面的命令用于在代码块中使文件名和语法可以不被高亮色块遮挡
+    \pgfdeclarelayer{background}               % 
+    \pgfdeclarelayer{foreground}
+    \pgfsetlayers{background,main,foreground}
+    \begin{tcbclipframe}
+      \tikzset{
+        boxes/.style={
+          draw=colorCodefenceTitlDraw,
+          % fill=colorCodefenceTitlFill,
+          text=colorCodefenceTitlText,
+          line width=.4pt,
+          font=\ttfamily\footnotesize,
+          rounded corners=3pt,
+          outer sep=2pt
+        }
+      }
+      \begin{pgfonlayer}{foreground}
+      \node(ext) [anchor=north east,boxes] at (frame.north east) {#2};
+      \IfNoValueF{#1}{
+        \node(title) [anchor=east,boxes] at (ext.west) {#1};
+      }
+      \end{pgfonlayer}
+    \end{tcbclipframe}
+  },
+  listing only, 
+  listing engine=minted,
+  minted language = #2, 
+  minted options = {   % minted 设置
+    tabsize=2,
+    linenos=true,
+    numbersep=5pt,
+    highlightlines={#3},
+    highlightcolor=colorCodefenceBodyFillHL,
+    xleftmargin=+10pt,
+  }
+}
+% 行内代码块外观设置
+% 相关的库 : tcolorbox
+\NewTotalTCBox{\codeinline}{ s E{\Syntax}{{latex}} m }{% 行间代码块设置
+  codestyle,
+  boxsep=0pt,
+  left=2pt,
+  right=2pt,
+  top=2pt,
+  bottom=2pt,
+  on line, % 位置设置
+}{%
+  \IfBooleanT{#1}{% 如果命令尾部有星号 %
+    \textcolor{gray}{% 就补上灰色的
+      \ttfamily >\ % "Prelude>"
+    }%
+  }%
+  \vphantom{\tt (Fg)}\smash{\mintinline[%
+    %
+  ]{#2}{#3}}%
+}
+
+% 代码块中高亮一行内的部分内容 。
+% 相关的库 : 
+\newcommand{\codeHL}[2][colorCodefenceBodyFillHL]{%        % 代码高亮部分
+    \setlength\fboxsep{0pt}%
+    \rlap{\colorbox{#1}{\vphantom{(Fg)}\phantom{#2}}}%
+    \setlength\fboxsep{3pt}%
+}%
