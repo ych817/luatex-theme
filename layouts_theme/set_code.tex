@@ -34,7 +34,10 @@
   encoding=utf8,
 }
 
-% 代码块中高亮行的行号也能被高亮 。代码来自 https://tex.stackexchange.com/questions/741923
+% 使黑暗模式下所有代码都能可见 。代码来自 https://tex.stackexchange.com/a/742098/242598
+\definecolor{textcolor}{RGB}{248,248,248}
+\renewcommand\FancyVerbFormatText[1]{\textcolor{textcolor}{#1}}
+% 代码块中高亮行的行号也能被高亮 。代码来自 https://tex.stackexchange.com/a/741983/242598
 % 相关的库 : minted , fbextra , fancyvrb , etoolbox
 \makeatletter
 \RenewDocumentCommand{\theFancyVerbLine}{}{%
@@ -69,7 +72,7 @@
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
   overlay={
-    % 下面的命令用于在代码块中使文件名和语法可以不被高亮色块遮挡
+    % 下面的命令用于在代码块中使文件名和语法可以不被高亮色块遮挡。代码来自 https://tex.stackexchange.com/a/741892/242598
     \pgfdeclarelayer{background}               % 
     \pgfdeclarelayer{foreground}
     \pgfsetlayers{background,main,foreground}
@@ -123,8 +126,6 @@
 \newcommand{\codeinlineSect}[2][latex]{\codeinlineTCB[\small]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
 \newcommand{\codeinlineSectSub}[2][latex]{\codeinlineTCB[\footnotesize]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
 \newcommand{\codeinlineSectSubSub}[2][latex]{\codeinlineTCB[\scriptsize]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
-
-\robustify{\codeinline}
 
 % 代码块中高亮一行内的部分内容 。
 % 相关的库 : 
