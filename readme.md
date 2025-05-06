@@ -6,7 +6,7 @@
 
 - `.vscode` : vscode 插件 latex workshop 配置
 - `content` : 文章内容
-- `layouts_theme` : 默认主题配置 , 其中
+- `layouts_origin` : 默认主题配置 , 其中
   - `use.tex` 用于引用包
   - `set_call.tex` 用于设置 Github callouts 样式
   - `set_code.tex` 用于设置代码块样式
