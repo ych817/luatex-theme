@@ -1,0 +1,51 @@
+% 代码块中高亮行的行号也能被高亮 。代码来自 https://tex.stackexchange.com/a/741983/242598
+% 相关的库 : minted , fbextra , fancyvrb , etoolbox
+\makeatletter
+\def\FancyVerbHighlightLineFirst#1{%
+  \setlength{\FV@TmpLength}{\fboxsep}%
+  \setlength{\fboxsep}{0pt}%
+  %%% <<< begin patch 1
+  \ifx\FV@LeftListNumber\relax
+  \else
+    \hspace{-\dimexpr\myFV@EstimatedNumberWidth+\FV@FrameRule+\FV@NumberSep}%
+  \fi
+  %%% >>> end patch 1
+  \colorbox{\FancyVerbHighlightColor}{%
+    \setlength{\fboxsep}{\FV@TmpLength}%
+    %%% <<< begin patch 2
+    \ifx\FV@LeftListNumber\relax
+    \else
+      \hspace{\myFV@EstimatedNumberWidth}%
+      % typeset left line number again, because the original number is under
+      % the line background
+      \llap{\theFancyVerbLine}%
+      \hspace{\dimexpr\FV@FrameRule+\FV@NumberSep}%
+    \fi
+    %%% >>> end patch 2
+    \rlap{\strut#1}%
+    \hspace{\linewidth}%
+    \ifx\FV@RightListFrame\relax\else
+      \hspace{-\FV@FrameSep}%
+      \hspace{-\FV@FrameRule}%
+    \fi
+    \ifx\FV@LeftListFrame\relax\else
+      \hspace{-\FV@FrameSep}%
+      \hspace{-\FV@FrameRule}%
+    \fi
+  }%
+  \hss
+}
+\let\FancyVerbHighlightLineMiddle\FancyVerbHighlightLineFirst
+\let\FancyVerbHighlightLineLast\FancyVerbHighlightLineFirst
+\let\FancyVerbHighlightLineSingle\FancyVerbHighlightLineFirst
+\newlength{\myFV@EstimatedNumberWidth}
+\setlength{\myFV@EstimatedNumberWidth}{18pt}
+\makeatother
+% 代码块行号格式设置
+\renewcommand{\theFancyVerbLine}{%                         
+    \ttfamily\textcolor{colorCodefenceNmbrText}{\footnotesize%
+        \oldstylenums{%
+            \hfill\arabic{FancyVerbLine}%
+        }%
+    }%
+}

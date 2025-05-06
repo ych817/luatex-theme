@@ -1,0 +1,27 @@
+% 代码块中高亮行的行号也能被高亮 。代码来自 https://tex.stackexchange.com/a/741983/242598
+% 相关的库 : minted , fbextra , fancyvrb , etoolbox
+\makeatletter
+\RenewDocumentCommand{\theFancyVerbLine}{}{%
+  \ttfamily\color{colorCodefenceNmbrText}%
+  \ifx\FV@LeftListNumber\relax
+  \else
+    % if left line number is one
+    \ifcsname FV@HighlightLine:\arabic{FancyVerbLine}\endcsname
+      % and if current line is highlighted
+      \setlength{\fboxsep}{0pt}%
+      \colorbox{\FancyVerbHighlightColor}{%
+        \hspace{\myFV@EstimatedNumberWidth}%
+        \strut % \strut in the default font size
+        \footnotesize
+        \vphantom{000}\llap{\oldstylenums{\arabic{FancyVerbLine}}}%
+        \hspace{\dimexpr+\FV@NumberSep}}%
+      \hspace{-\FV@NumberSep}%
+    \else
+      \footnotesize
+      \oldstylenums{\arabic{FancyVerbLine}}%
+    \fi
+  \fi
+}
+\newlength{\myFV@EstimatedNumberWidth}
+\setlength{\myFV@EstimatedNumberWidth}{18pt}
+\makeatother
