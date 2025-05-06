@@ -4,7 +4,6 @@
 ]{ctex}                   % 中文支持
 % 编程相关
 \usepackage{etoolbox}     % 打补丁专用
-% \usepackage{xparse}       % robust
 \usepackage{calc}         % 计算用
 \usepackage{keyval}       % 键值对
 % 页面设置
@@ -37,14 +36,16 @@
     table                   % 允许为单元格染色
 ]{xcolor}                 % 颜色扩展
 % \usepackage{luacolor}
-% 代码样式
+% 代码排版
+\usepackage{minted}	      % 代码高亮
+% 盒子相关
 \usepackage[
     all
-]{tcolorbox}              % 各种漂亮的文本框
-\usepackage{minted}	      % 代码高亮
-\usetikzlibrary{tikzmark} % 用于高亮文本
-\usetikzmarklibrary{highlighting}
+]{tcolorbox}              % 盒子样式定制
 \usepackage[
     export
-]{adjustbox}              % 缩放盒子
-\usepackage{tabularray}   % 表格
+]{adjustbox}              % 盒子缩放
+% 表格相关
+\usepackage{tabularray}   
+% 绘图相关
+\usepackage{luamplib}     % 绘图工具
