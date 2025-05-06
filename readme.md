@@ -21,4 +21,4 @@
 - [Is there a good way to make tcblistings highlight lines and the linenumber at the same time?](https://tex.stackexchange.com/questions/741923)
 - [Is there any goodway to make tcolorbox overlay cover the box content?](https://tex.stackexchange.com/questions/741872)
 
-[此外正在研究 @thruston 的 (Drawing-with-Metapost](https://github.com/thruston/Drawing-with-Metapost)
+此外正在研究 @thruston 的 [Drawing-with-Metapost](https://github.com/thruston/Drawing-with-Metapost)
