@@ -1,0 +1,31 @@
+{\setlength{\fboxrule}{0pt}
+\begin{mplibcode}
+vardef make_node(expr t) = image(
+  picture T; T = thelabel("\texttt{" & t & "\vphantom{fg1}}", 8 down); bboxmargin := 3; path p; p = bbox T;
+  path S; S = superellipse(point 3/2 of p, point 5/2 of p, point 7/2 of p, point 1/2 of p, 0.8);
+  string x; x = substring (0, 1) of t;
+  fill S withcolor 8/10[blue, white];
+  draw S; draw T;
+) enddef;
+beginfig(1);
+draw make_node("mp1 \color{NavyBlue}{$\mathbb{N}$}");
+endfig;
+\end{mplibcode}
+
+\begin{mplibcode}
+beginfig(2);
+n = 0;
+z0 = (0,0);
+z1 = (60,40);
+z2 = (40,90);
+z3 = (10,70);
+z4 = (30,50);
+draw z0..z1..z2..z3..z4;
+for p = z0, z1, z2, z3, z4:
+  drawdot p withpen pencircle scaled 2pt;
+  dotlabel.urt(TEX("$z_{" & decimal incr n & "}$"), p);
+endfor;
+endfig;
+\end{mplibcode}
+}
+

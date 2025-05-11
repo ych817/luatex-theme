@@ -13,7 +13,7 @@
   - `set_code_fvextra01.tex` 为[此答案](https://tex.stackexchange.com/questions/741923)的第一个版本
   - `set_code_fvextra02.tex` 为[此答案](https://tex.stackexchange.com/questions/741923)的第二个版本
 - `layouts_custom` : 额外的主题配置
-- `static` : 存放图像 , 代码等内容
+- `statics` : 存放图像 , 代码等内容
 
 感谢 tex.stackexchange.com 上各位专家提供的帮助 。下面是我提过的问题 :
 

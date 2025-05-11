@@ -13,7 +13,19 @@
 \colorlet{colorCodefenceTitlText}{Cerulean!50!white}         % 代码块行号文字颜色
 \colorlet{colorCodefenceTitlDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
 \colorlet{colorCodefenceTitlFill}{colorCodefenceBodyFill}    % 代码块标题边框颜色
- 
+
+\tikzset{
+    codeforce/title/.style={
+        draw=colorCodefenceTitlDraw,
+        fill=colorCodefenceTitlFill,
+        text=colorCodefenceTitlText,
+        line width=.4pt,
+        font=\ttfamily\small,
+        rounded corners=3pt,
+        outer sep=2pt
+    }
+}
+
 \tcbset{
   codestyle/.style={
     breakable,
@@ -47,30 +59,13 @@
   fontupper=\footnotesize,
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
-  overlay={
-    % 下面的命令用于在代码块中使文件名和语法可以不被高亮色块遮挡。代码来自 https://tex.stackexchange.com/a/741892/242598
-    \pgfdeclarelayer{background}               % 
-    \pgfdeclarelayer{foreground}
-    \pgfsetlayers{background,main,foreground}
-    \begin{tcbclipframe}
-      \tikzset{
-        boxes/.style={
-          draw=colorCodefenceTitlDraw,
-          % fill=colorCodefenceTitlFill,
-          text=colorCodefenceTitlText,
-          line width=.4pt,
-          font=\ttfamily\footnotesize,
-          rounded corners=3pt,
-          outer sep=2pt
-        }
-      }
-      \begin{pgfonlayer}{foreground}
-      \node(ext) [anchor=north east,boxes] at (frame.north east) {#2};
-      \IfNoValueF{#1}{
-        \node(title) [anchor=east,boxes] at (ext.west) {#1};
-      }
-      \end{pgfonlayer}
-    \end{tcbclipframe}
+  finish={
+    \node(ext) [anchor=north east, codeforce/title]
+      at (frame.north east) {#2};
+    \IfValueT{#1}{
+      \node(title) [anchor=east, codeforce/title]
+        at (ext.west) {#1};
+    }
   },
   listing only, 
   listing engine=minted,
