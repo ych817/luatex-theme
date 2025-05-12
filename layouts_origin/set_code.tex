@@ -1,4 +1,4 @@
-\usemintedstyle{material}                                     % 代码块主体高亮风格(见https://pygments.org/styles/)
+\usemintedstyle{material}                                    % 代码块主体高亮风格(见https://pygments.org/styles/)
 \colorlet{colorCodefenceBodyDraw}{Gray}                      % 代码块主体边框颜色
 \colorlet{colorCodefenceBodyFill}{Black!75!DarkBlue}         % 代码块主体填充颜色
 \colorlet{colorCodefenceBodyFillHL}{black!45!DarkSlateBlue}  % 代码块主体填充颜色-高亮行
@@ -14,18 +14,17 @@
 \colorlet{colorCodefenceTitlDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
 \colorlet{colorCodefenceTitlFill}{colorCodefenceBodyFill}    % 代码块标题边框颜色
 
-\tikzset{
-    codeforce/title/.style={
-        draw=colorCodefenceTitlDraw,
-        fill=colorCodefenceTitlFill,
-        text=colorCodefenceTitlText,
-        line width=.4pt,
-        font=\ttfamily\small,
-        rounded corners=3pt,
-        outer sep=2pt
-    }
+\tikzset{ % 用于下面 tcblisting 的 finish 键
+  codeforce/title/.style={
+    draw=colorCodefenceTitlDraw,
+    fill=colorCodefenceTitlFill,
+    text=colorCodefenceTitlText,
+    line width=.4pt,
+    font=\ttfamily\small,
+    rounded corners=3pt,
+    outer sep=2pt
+  }
 }
-
 \tcbset{
   codestyle/.style={
     breakable,
@@ -59,6 +58,7 @@
   fontupper=\footnotesize,
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
+  % 代码块中标题和语法名称可以显示在 tcb 的上层 。代码来自 https://tex.stackexchange.com/a/742065/242598
   finish={
     \node(ext) [anchor=north east, codeforce/title]
       at (frame.north east) {#2};
@@ -84,7 +84,7 @@
 \newtcbox{\codeinlineTCB}[1][\footnotesize]{% 行间代码块设置
   codestyle,
   fontupper=#1,
-  colupper=white,
+  colupper=colorCodefenceNmbrText,
   nobeforeafter,
   boxsep=1.5pt,
   left=2pt,
@@ -93,6 +93,7 @@
   bottom=0pt,
   on line, % 位置设置
 }
+
 \newcommand{\codeinline}[2][latex]{\codeinlineTCB{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
 \newcommand{\codeinlineSect}[2][latex]{\codeinlineTCB[\small]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
 \newcommand{\codeinlineSectSub}[2][latex]{\codeinlineTCB[\footnotesize]{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
