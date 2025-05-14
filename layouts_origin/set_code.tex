@@ -20,7 +20,7 @@
     fill=colorCodefenceTitlFill,
     text=colorCodefenceTitlText,
     line width=.4pt,
-    font=\ttfamily\small,
+    font=\ttfamily\relsize{0},
     rounded corners=3pt,
     outer sep=2pt
   }
@@ -36,6 +36,7 @@
     colback =colorCodefenceBodyFill,
     boxrule=.4pt,
     arc=5pt,
+    fontupper=\relsize{-1}
   }
 }
 \setminted{
@@ -55,7 +56,6 @@
 % 相关的库 : minted , tcolorbox , xparse
 \NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}} }{%
   codestyle,
-  fontupper=\footnotesize,
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
   % 代码块中标题和语法名称可以显示在 tcb 的上层 。代码来自 https://tex.stackexchange.com/a/742065/242598
@@ -83,7 +83,6 @@
 % 相关的库 : tcolorbox
 \newtcbox{\codeinlineTCB}{% 行间代码块设置
   codestyle,
-  fontupper=\relsize{-1},
   colupper=colorCodefenceNmbrText,
   nobeforeafter,
   boxsep=1.5pt,
