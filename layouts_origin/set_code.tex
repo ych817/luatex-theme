@@ -20,13 +20,14 @@
     fill=colorCodefenceTitlFill,
     text=colorCodefenceTitlText,
     line width=.4pt,
-    font=\ttfamily\small,
+    font=\ttfamily\relsize{-0.5},
     rounded corners=3pt,
     outer sep=2pt
   }
 }
 \tcbset{
   codestyle/.style={
+    fontupper=\relsize{-1},
     breakable,
     enhanced,
     skin first=enhanced,
@@ -36,7 +37,6 @@
     colback =colorCodefenceBodyFill,
     boxrule=.4pt,
     arc=5pt,
-    fontupper=\relsize{-1}
   }
 }
 \setminted{
