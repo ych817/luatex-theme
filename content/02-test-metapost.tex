@@ -8,12 +8,24 @@
 
 \input{statics/image/fig_test}
 
-\includegraphics[scale=0.5, trim=0 +3pt 0 0]{statics/icon/caution.pdf} {\sffamily\scriptsize 警告} 这是一段警告
+\definecolor{colorCaution}{RGB}{192,  56,  43}
+\definecolor{colorWarning}{RGB}{243, 156,  25}
+\definecolor{colorImportant}{RGB}{142, 67, 143}
+\definecolor{colorNote}{RGB}{51, 152, 219}
+\definecolor{colorTip}{RGB}{46, 204, 112}
 
-\includegraphics[scale=0.5, trim=0 +3pt 0 0]{statics/icon/warning.pdf} {\sffamily\scriptsize 注意} 这是一条注意
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/caution.pdf} {\color{colorCaution}\sffamily\scriptsize 警告} 这是一段警告
 
-\includegraphics[scale=0.5, trim=0 +3pt 0 0]{statics/icon/important.pdf} {\sffamily\scriptsize 重要} 这是 $\ldots$
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/warning.pdf} {\color{colorWarning}\sffamily\scriptsize 注意} 这是一条注意
 
-\includegraphics[scale=0.5, trim=0 +3pt 0 0]{statics/icon/note.pdf} {\sffamily\scriptsize 留意}
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/important.pdf} {\color{colorImportant}\sffamily\scriptsize 重要} 这是 $\ldots$
 
-\includegraphics[scale=0.5, trim=0 +3pt 0 0]{statics/icon/tip.pdf} {\sffamily\scriptsize 提示}
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/note.pdf} {\color{colorNote}\sffamily\scriptsize 留意}
+
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/tip.pdf} {\color{colorTip}\sffamily\scriptsize 提示}
+
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/caution.pdf}%
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/warning.pdf}%
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/important.pdf}%
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/note.pdf}%
+\includegraphics[scale=0.5, trim=0 +5pt 0 0]{statics/icon/tip.pdf}
