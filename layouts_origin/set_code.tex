@@ -20,14 +20,14 @@
     fill=colorCodefenceTitlFill,
     text=colorCodefenceTitlText,
     line width=.4pt,
-    font=\ttfamily\relsize{-1},
+    font=\ttfamily\relscale{.7},
     rounded corners=3pt,
     outer sep=2pt
   }
 }
 \tcbset{
   codestyle/.style={
-    fontupper=\relsize{-2},
+    fontupper=\relscale{.7},
     breakable,
     enhanced,
     skin first=enhanced,
@@ -92,7 +92,10 @@
   bottom=0pt,
   on line, % 位置设置
 }
-\newcommand{\codeinline}[2][latex]{\codeinlineTCB{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}}
+\newcommand{\codeinline}[2][latex]{%
+  \vphantom{\scriptsize\ttfamily (Fg泥濠)}%
+  \codeinlineTCB{\vphantom{\tt (Fg泥濠)}\mintinline{#1}{#2}}%
+}
 % 代码块中高亮一行内的部分内容 。
 % 相关的库 : 
 \newcommand{\codeHL}[2][colorCodefenceBodyFillHL]{%        % 代码高亮部分
