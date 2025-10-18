@@ -1,36 +1,13 @@
-\begin{codefence}[./fgmain.tex]\Highlight{4-5,10}
+\begin{codefence}[./fgmain.tex]\Highlight{4-5,10}\Mode{listing and text}\ %This space is mandatory, otherwise the first command will be gobbled.
 % 代码块中高亮行的行号也能被高亮 。
 % 代码来自 https://tex.stackexchange.com/questions/741923
 % 相关的库 : minted , fbextra , fancyvrb , etoolbox
-\makeatletter
-\RenewDocumentCommand{\theFancyVerbLine}{}{\ttfamily\color{colorCodefenceNmbrText}%
-  \ifx\FV@LeftListNumber\relax
-  \else
-    % if left line number is one
-    \ifcsname %
-    FV@HighlightLine:\arabic{FancyVerbLine}%
-    \endcsname%
-      % and if current line is highlighted
-      \setlength{\fboxsep}{0pt}%
-      \colorbox{\FancyVerbHighlightColor}{%
-        \hspace{\myFV@EstimatedNumberWidth}%
-        \strut % \strut in the default font size
-        \footnotesize\vphantom{000}
-        \llap{\oldstylenums{\arabic{FancyVerbLine}}}%
-        \hspace{\dimexpr+\FV@NumberSep}}%
-      \hspace{-\FV@NumberSep}%
-    \else
-      \footnotesize
-      \oldstylenums{\arabic{FancyVerbLine}}%
-    \fi
-  \fi
-}
-\newlength{\myFV@EstimatedNumberWidth}
-\setlength{\myFV@EstimatedNumberWidth}{18pt}
-\makeatother
-
-
-\HUGE{$x^2=4$}
-\begin{env}
-\end{env}
+\begin{tikzpicture}
+\path[fill=yellow!50!white] (0,0) circle (11mm);
+\path[fill=white] (0,0) circle (9mm);
+\foreach \w/\c in {90/red,210/green,330/blue}
+{\path[shading=ball,ball color=\c] (\w:1cm) circle (7mm);}
+\end{tikzpicture}
+% import Lib
+% import Control.Lens
 \end{codefence}

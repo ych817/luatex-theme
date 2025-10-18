@@ -22,8 +22,6 @@
     text opacity=1,
     text height=height("\ttfamily\relscale{.7}/()Fg泥濠"),
     text depth = depth("\ttfamily\relscale{.7}/()Fg泥濠"),
-    % draw=colorCodefenceTitlDraw,
-    % rounded corners=3pt,
     outer xsep=0pt,
     outer ysep=0pt,
     inner ysep=1pt
@@ -37,12 +35,15 @@
     skin first=enhanced,
     skin middle=enhanced,
     skin last=enhanced,
+    bicolor,
     colframe=colorCodefenceBodyDraw,
-    colback =colorCodefenceBodyFill,
+    colback=colorCodefenceBodyFill,
+    colbacklower=LightGray!50,
     boxrule=.4pt,
     arc=5pt,
     top=2.5mm,
-    bottom=2.5mm,
+    bottom=2mm,
+    center lower,
   }
 }
 \setminted{
@@ -60,23 +61,24 @@
 \input{layouts_origin/set_code_fvextra01}
 % 代码块外观样式设置
 % 相关的库 : minted , tcolorbox , xparse
-\NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Insert\Delete}{{latex}{}{}{}} }{%
-  code={\linespread{1.3}},
+
+\NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Mode}{{latex}{}{listing only}} }{%
+  % interior code={\linespread{1.3}},
   codestyle,
   boxsep=2pt,
   right=-2pt, % 对应 boxsep
   % 代码块中标题和语法名称可以显示在 tcb 的上层 。代码来自 https://tex.stackexchange.com/a/742065/242598
   finish={
     \node(syntax) [anchor=north east, codeforce/header]
-      at ([xshift=-5pt]frame.north east) {#2};
+      at ([xshift=-5pt]interior.north east) {#2};
     \IfValueT{#1}{
     \begin{tcbclipframe}
     \node(header) [anchor=north west, codeforce/header]
-      at ([xshift=+5pt]frame.north west) {#1};
+      at ([xshift=+5pt]interior.north west) {#1};
     \end{tcbclipframe}
     }
   },
-  listing only, 
+  #4, % 默认 listing only , 可以换成 listing and comment 及其他
   listing engine=minted,
   minted language = #2, 
   minted options = {   % minted 设置
