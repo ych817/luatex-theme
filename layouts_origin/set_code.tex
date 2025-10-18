@@ -10,21 +10,42 @@
 \colorlet{colorCodefenceNmbrText}{white!25!LightSteelBlue}   % 代码块行号文字颜色
 \colorlet{colorCodefenceNmbrFill}{colorCodefenceBodyFill}    % 代码块行号填充颜色
 
-\colorlet{colorCodefenceTitlText}{Cerulean!50!white}         % 代码块行号文字颜色
-\colorlet{colorCodefenceTitlDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
-\colorlet{colorCodefenceTitlFill}{colorCodefenceBodyFill}    % 代码块标题边框颜色
+\colorlet{colorCodefenceSyntText}{Cerulean!50!white}         % 代码块语法文字颜色
+\colorlet{colorCodefenceSyntDraw}{colorCodefenceNmbrText}    % 代码块语法边框颜色
+\colorlet{colorCodefenceSyntFill}{colorCodefenceBodyFill}    % 代码块语法边框颜色
+
+\colorlet{colorCodefenceHeadText}{colorCodefenceNmbrText}    % 代码块标题文字颜色
+\colorlet{colorCodefenceHeadDraw}{colorCodefenceNmbrText}    % 代码块标题边框颜色
+\colorlet{colorCodefenceHeadFill}{Black!50!RoyalPurple}      % 代码块标题边框颜色
 
 \tikzset{ % 用于下面 tcblisting 的 finish 键
   codeforce/title/.style={
-    draw=colorCodefenceTitlDraw,
-    fill=colorCodefenceTitlFill,
-    fill opacity=0.5,
-    text=colorCodefenceTitlText,
     text opacity=1,
-    line width=.4pt,
     font=\ttfamily\relscale{.7},
+    text height=height("\ttfamily\relscale{.7}\relsize{-.5}/Fg泥濠"),
+    text depth=depth("\ttfamily\relscale{.7}\relsize{-.5}/Fg泥濠"),
+  },
+  codeforce/syntax/.style={
+    draw=colorCodefenceSyntDraw,
+    line width=.4pt,
+    fill=colorCodefenceSyntFill,
+    fill opacity=0.5,
+    text=colorCodefenceSyntText,
     rounded corners=3pt,
-    outer sep=2pt
+    outer sep=2pt,
+    inner ysep=1pt
+  },
+  codeforce/header/.style={
+    % draw=colorCodefenceHeadDraw,
+    line width=.4pt,
+    % fill=colorCodefenceHeadFill,
+    % fill opacity=0.5,
+    text=colorCodefenceHeadText,
+    align=flush left,
+    text width = \linewidth,
+    outer xsep=0pt,
+    outer ysep=0pt,
+    inner ysep=1pt
   }
 }
 \tcbset{
@@ -63,11 +84,15 @@
   right=-2pt, % 对应 boxsep
   % 代码块中标题和语法名称可以显示在 tcb 的上层 。代码来自 https://tex.stackexchange.com/a/742065/242598
   finish={
-    \node(ext) [anchor=north east, codeforce/title]
+    \node(syntax) [anchor=north east, codeforce/title, codeforce/syntax]
       at (frame.north east) {\relsize{-1}#2};
+  },
+  overlay={
     \IfValueT{#1}{
-      \node(title) [anchor=east, codeforce/title]
-        at (ext.west) {\relsize{-1}#1};
+    \begin{tcbclipframe}
+    \node(header) [anchor=north west, codeforce/title, codeforce/header]
+      at (frame.north west) {\relsize{-1}#1};
+    \end{tcbclipframe}
     }
   },
   listing only, 
