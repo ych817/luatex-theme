@@ -1,0 +1,10 @@
+\begin{tikzpicture}
+\node [
+  draw, 
+  line width=.4pt,
+  rounded corners=5pt
+] (x2) at (0,0) {$x_2\vphantom{fg}$};
+\foreach \i in {3,4,...,6} {
+\draw[->] (x2) .. controls +(-\i,\i) and +(\i,\i) .. (x2) ;
+}
+\end{tikzpicture}
