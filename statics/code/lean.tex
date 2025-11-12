@@ -1,0 +1,7 @@
+\begin{codefence}[test.hs]\Syntax{lean}\Highlight{1-4}
+theorem funext {f₁ f₂ : ∀ (x : α), β x} (h : ∀ x, f₁ x = f₂ x) : f₁ = f₂ := by
+  show extfunApp (Quotient.mk' f₁) = extfunApp (Quotient.mk' f₂)
+  apply congrArg
+  apply Quotient.sound
+  exact h
+\end{codefence}
