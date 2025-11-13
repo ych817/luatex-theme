@@ -1,5 +1,5 @@
 % \setmonofont{JuliaMono-Medium}
-\setmonofont[
+\setmonofont[                                                % 设置代码块字体
   Contextuals={Alternate}
 ]{Fira Code}
 \usemintedstyle{material}                                    % 代码块主体高亮风格(见https://pygments.org/styles/)
@@ -67,7 +67,7 @@
 % 代码块外观样式设置
 % 相关的库 : minted , tcolorbox , xparse
 
-\NewTCBListing{codefence}{ !o !E{\Syntax\Highlight\Mode}{{latex}{}{listing only}} }{%
+\NewTCBListing{codefence}{ !E{\FileName\Syntax\Lexer\Highlight\Mode}{{}{latex}{#2}{}{listing only}} }{%
   code={\linespread{1.3}},
   codestyle,
   boxsep=2pt,
@@ -83,14 +83,14 @@
     \end{tcbclipframe}
     }
   },
-  #4, % 默认 listing only , 可以换成 listing and comment 及其他
+  #5, % 默认 listing only , 可以换成 listing and comment 及其他
   listing engine=minted,
-  minted language = #2, 
+  minted language = #3, 
   minted options = {   % minted 设置
     tabsize=2,
     linenos=true,
     numbersep=5pt,
-    highlightlines={#3},
+    highlightlines={#4},
     highlightcolor=colorCodefenceBodyFillHL,
     xleftmargin=+10pt,
   }
